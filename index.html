@@ -1,70 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!DOCTYPE html>
-<html lang="es"><!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Desafío de Obras de Misericordia</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .progress-bar {
-            background: #e0e0e0;
-            height: 20px;
-            margin: 20px 30px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #4CAF50, #8BC34A);
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s ease;
-            b<!DOCTYPE html>
-<html lang="es">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Desafío de Obras de Misericordia</title>
@@ -423,33 +359,202 @@
             }
             
             .header {
-                padding: 20px;
+                padding: 20px 15px;
             }
             
             .header h1 {
-                font-size: 2em;
+                font-size: 1.8em;
+                line-height: 1.2;
+            }
+            
+            .header p {
+                font-size: 1em;
+            }
+            
+            .progress-bar {
+                margin: 15px 20px;
+            }
+            
+            .stats {
+                margin: 15px 20px;
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stat-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                background: white;
+                border-radius: 8px;
+            }
+            
+            .stat-number {
+                font-size: 1.5em;
+            }
+            
+            .days-container {
+                padding: 15px 20px;
+            }
+            
+            .section-header {
+                margin: 15px 0;
+                padding: 15px;
+            }
+            
+            .section-header h2 {
+                font-size: 1.4em;
+                margin-bottom: 8px;
+            }
+            
+            .section-header p {
+                font-size: 0.9em;
             }
             
             .day-card {
-                padding: 20px;
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+            
+            .day-header {
+                flex-direction: column;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            
+            .day-number {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .day-title {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+            
+            .emoji {
+                margin-left: 0;
+            }
+            
+            .day-description {
+                font-size: 1em;
+                text-align: center;
+                margin-bottom: 15px;
             }
             
             .actions {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .action-item {
+                font-size: 0.9em;
+                padding: 10px 12px;
+                text-align: center;
             }
             
             .check-section {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: center;
+                gap: 10px;
             }
-
+            
+            .check-button {
+                width: 100%;
+                max-width: 250px;
+                padding: 15px 20px;
+                font-size: 1em;
+            }
+            
+            .feeling-section {
+                padding: 12px;
+            }
+            
+            .feeling-question {
+                font-size: 0.9em;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            
+            .feeling-options {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                justify-items: center;
+            }
+            
+            .feeling-emoji {
+                font-size: 2.2em;
+            }
+            
+            .celebration {
+                padding: 20px 15px;
+            }
+            
+            .celebration h2 {
+                font-size: 2em;
+            }
+            
+            .celebration p {
+                font-size: 1.1em;
+            }
+            
+            .share-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .share-section {
+                padding: 15px 20px;
+            }
+            
             .share-options {
-                justify-content: center;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                justify-items: center;
             }
-
+            
             .mini-share-btn {
-                flex: 1;
-                min-width: 120px;
+                width: 100%;
+                padding: 10px 8px;
+                font-size: 0.85em;
+            }
+            
+            /* Ajustes específicos para el panel de preparación */
+            div[style*="margin: 20px 30px"] {
+                margin: 15px 20px !important;
+                padding: 12px !important;
+                font-size: 0.85em;
+            }
+            
+            #resetPanel {
+                margin: 15px 20px !important;
+                padding: 15px !important;
+            }
+            
+            #resetPanel h4 {
+                font-size: 1.1em;
+            }
+            
+            #resetPanel p {
+                font-size: 0.9em;
+            }
+            
+            #resetPanel div[style*="display: flex"] {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            #resetPanel button {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 0.9em;
             }
         }
     </style>
