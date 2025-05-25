@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Desafío de Obras de Misericordia</title>
@@ -409,6 +412,25 @@
 
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <!-- Panel de preparación para adultos - AL PRINCIPIO -->
+        <div style="margin: 20px 30px; padding: 15px; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+            <p style="margin: 0; color: #856404; font-size: 0.85em; line-height: 1.4;">
+                <strong>👨‍🏫 Para educadores/padres:</strong> ¿Un nuevo niño va a usar esta herramienta? 
+                <span onclick="showResetOptions()" style="color: #007bff; cursor: pointer; text-decoration: underline;">Preparar herramienta</span> 
+                antes de empezar.
+            </p>
+        </div>
+
+        <!-- Panel de reseteo oculto -->
+        <div id="resetPanel" style="display: none; margin: 20px 30px; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <h4 style="color: #333; margin-bottom: 15px;">🔄 Preparar para Nuevo Niño</h4>
+            <p style="color: #666; margin-bottom: 15px;">Esto permitirá que el próximo niño tenga su propia experiencia completa, incluyendo la sorpresa del diploma y celebración.</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="resetProgress()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold;">✅ Sí, preparar para nuevo niño</button>
+                <button onclick="hideResetOptions()" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">❌ Cancelar</button>
+            </div>
         </div>
 
         <div class="stats">
@@ -860,25 +882,6 @@
                 <button onclick="shareWhatsApp()" class="mini-share-btn">💬 WhatsApp</button>
                 <button onclick="shareEmail()" class="mini-share-btn">📧 Email</button>
                 <button onclick="generateQR()" class="mini-share-btn">📱 Código QR</button>
-            </div>
-            
-            <!-- Reseteo discreto para adultos -->
-            <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
-                <p style="margin: 0; color: #856404; font-size: 0.85em; line-height: 1.4;">
-                    <strong>👨‍🏫 Para educadores/padres:</strong> ¿Un nuevo niño va a usar esta herramienta? 
-                    <span onclick="showResetOptions()" style="color: #007bff; cursor: pointer; text-decoration: underline;">Haz clic aquí</span> 
-                    para preparar la herramienta.
-                </p>
-            </div>
-        </div>
-
-        <!-- Panel de reseteo oculto -->
-        <div id="resetPanel" style="display: none; margin: 20px 30px; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-            <h4 style="color: #333; margin-bottom: 15px;">🔄 Preparar para Nuevo Niño</h4>
-            <p style="color: #666; margin-bottom: 15px;">Esto permitirá que el próximo niño tenga su propia experiencia completa, incluyendo la sorpresa del diploma y celebración.</p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button onclick="resetProgress()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold;">✅ Sí, preparar para nuevo niño</button>
-                <button onclick="hideResetOptions()" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">❌ Cancelar</button>
             </div>
         </div>
     </div>
