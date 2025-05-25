@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Desafío de Obras de Misericordia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 20px;
+            margin: 20px 30px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .days-container {
+            padding: 20px 30px;
+        }
+
+        .day-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            padding: 25px;
+            border-left: 6px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .day-card.corporal {
+            border-left-color: #ff6b6b;
+        }
+
+        .day-card.corporal .day-number {
+            background: #ff6b6b;
+        }
+
+        .day-card.corporal.completed {
+            background: linear-gradient(135deg, #ffe8e8, #ffcccb);
+            border-left-color: #e53e3e;
+        }
+
+        .day-card.espiritual {
+            border-left-color: #4ecdc4;
+        }
+
+        .day-card.espiritual .day-number {
+            background: #4ecdc4;
+        }
+
+        .day-card.espiritual.completed {
+            background: linear-gradient(135deg, #e0f7f7, #b3f0ed);
+            border-left-color: #38b2ac;
+        }
+
+        .section-header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            margin: 20px 0;
+        }
+
+        .section-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .section-header.corporal {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            border-radius: 15px;
+            margin: 20px 30px;
+        }
+
+        .section-header.espiritual {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            border-radius: 15px;
+            margin: 20px 30px;
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .day-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+
+        .day-title {
+            flex: 1;
+            font-size: 1.4em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-size: 2em;
+            margin-left: 10px;
+        }
+
+        .day-description {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .action-item {
+            background: #e3f2fd;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #1976d2;
+            border: 2px solid #bbdefb;
+        }
+
+        .check-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .check-button {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .check-button:hover {
+            background: #f57c00;
+            transform: scale(1.05);
+        }
+
+        .check-button.completed {
+            background: #4CAF50;
+        }
+
+        .feeling-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff3e0;
+            border-radius: 10px;
+            border: 2px dashed #ff9800;
+        }
+
+        .feeling-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #e65100;
+        }
+
+        .feeling-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .feeling-emoji {
+            font-size: 2.5em;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: transform 0.2s ease;
+        }
+
+        .feeling-emoji:hover {
+            transform: scale(1.2);
+            background: rgba(255,152,0,0.1);
+        }
+
+        .feeling-emoji.selected {
+            background: #ff9800;
+            box-shadow: 0 0 10px rgba(255,152,0,0.5);
+        }
+
+        .celebration {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            display: none;
+        }
+
+        .celebration.show {
+            display: block;
+        }
+
+        .celebration h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .celebration p {
+            font-size: 1.3em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 20px;
+            background: #e8f5e8;
+            border-radius: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .stat-label {
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .share-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .share-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .mini-share-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .mini-share-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .progress-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .qr-container {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .day-card {
+                padding: 20px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .check-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .share-options {
+                justify-content: center;
+            }
+
+            .mini-share-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Mi Desafío de Obras de Misericordia 🌟</h1>
+            <p>7 días para ayudar con amor como Jesús nos enseñó</p>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 15px; height: 15px; background: #ff6b6b; border-radius: 50%;"></div>
+                    <span style="font-size: 0.9em;">Obras Corporales</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 15px; height: 15px; background: #4ecdc4; border-radius: 50%;"></div>
+                    <span style="font-size: 0.9em;">Obras Espirituales</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="completedDays">0</div>
+                <div class="stat-label">Días completados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="happyMoments">0</div>
+                <div class="stat-label">Momentos felices</div>
+            </div>
+        </div>
+
+        <div class="days-container">
+            <div class="section-header corporal">
+                <h2>💖 OBRAS DE MISERICORDIA CORPORALES 💖</h2>
+                <p>Ayudando con el cuerpo y las necesidades físicas</p>
+            </div>
+
+            <div class="day-card corporal" data-day="1">
+                <div class="day-header">
+                    <div class="day-number">1</div>
+                    <div class="day-title">Dar de comer al hambriento</div>
+                    <div class="emoji">🍎</div>
+                </div>
+                <div class="day-description">
+                    Hoy voy a compartir mi comida o ayudar a que alguien que tiene hambre pueda comer algo rico.
+                </div>
+                <div class="actions">
+                    <div class="action-item">🥪 Compartir mi almuerzo</div>
+                    <div class="action-item">🍪 Dar galletas a un amigo</div>
+                    <div class="action-item">🥛 Llevar un vaso de leche</div>
+                    <div class="action-item">💝 Ayudar en casa para donar comida</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(1)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí después de ayudar?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(1, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(1, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(1, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(1, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card corporal" data-day="2">
+                <div class="day-header">
+                    <div class="day-number">2</div>
+                    <div class="day-title">Dar de beber al sediento</div>
+                    <div class="emoji">🥤</div>
+                </div>
+                <div class="day-description">
+                    Voy a ayudar a alguien que tenga sed o necesite algo para beber, especialmente cuando hace calor.
+                </div>
+                <div class="actions">
+                    <div class="action-item">💧 Ofrecer agua fresca</div>
+                    <div class="action-item">🧃 Compartir mi jugo</div>
+                    <div class="action-item">☕ Ayudar a servir bebidas</div>
+                    <div class="action-item">🍋 Hacer limonada para compartir</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(2)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al dar de beber?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(2, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(2, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(2, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(2, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card corporal" data-day="3">
+                <div class="day-header">
+                    <div class="day-number">3</div>
+                    <div class="day-title">Vestir al desnudo</div>
+                    <div class="emoji">👕</div>
+                </div>
+                <div class="day-description">
+                    Voy a donar ropa que ya no uso o ayudar a alguien que necesita abrigo para que no pase frío.
+                </div>
+                <div class="actions">
+                    <div class="action-item">👔 Donar ropa que ya no uso</div>
+                    <div class="action-item">🧥 Regalar un abrigo</div>
+                    <div class="action-item">👟 Donar zapatos en buen estado</div>
+                    <div class="action-item">🧸 Incluir peluches con la ropa</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(3)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al donar ropa?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(3, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(3, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(3, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(3, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card corporal" data-day="4">
+                <div class="day-header">
+                    <div class="day-number">4</div>
+                    <div class="day-title">Dar posada al peregrino</div>
+                    <div class="emoji">🏠</div>
+                </div>
+                <div class="day-description">
+                    Voy a ser hospitalario y acoger con cariño a alguien que necesita un lugar donde quedarse o descansar.
+                </div>
+                <div class="actions">
+                    <div class="action-item">🚪 Abrir mi casa con amor</div>
+                    <div class="action-item">🛏️ Compartir mi habitación</div>
+                    <div class="action-item">🍽️ Invitar a comer en casa</div>
+                    <div class="action-item">🤗 Hacer sentir bienvenido</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(4)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al acoger?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(4, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(4, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(4, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(4, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card corporal" data-day="5">
+                <div class="day-header">
+                    <div class="day-number">5</div>
+                    <div class="day-title">Visitar a los enfermos</div>
+                    <div class="emoji">🏥</div>
+                </div>
+                <div class="day-description">
+                    Voy a buscar a alguien que esté enfermo o se sienta mal y le voy a hacer compañía o ayudar a que se sienta mejor.
+                </div>
+                <div class="actions">
+                    <div class="action-item">🌸 Hacer una visita especial</div>
+                    <div class="action-item">📞 Llamar para saludar</div>
+                    <div class="action-item">🧸 Prestar un juguete favorito</div>
+                    <div class="action-item">🍯 Llevar algo rico para mejorar</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(5)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al visitar?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(5, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(5, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(5, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(5, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card corporal" data-day="6">
+                <div class="day-header">
+                    <div class="day-number">6</div>
+                    <div class="day-title">Visitar a los presos</div>
+                    <div class="emoji">🤝</div>
+                </div>
+                <div class="day-description">
+                    Voy a visitar o escribir a alguien que esté solo, castigado, o alejado de su familia para hacerle compañía.
+                </div>
+                <div class="actions">
+                    <div class="action-item">✉️ Escribir una carta bonita</div>
+                    <div class="action-item">🎨 Hacer un dibujo especial</div>
+                    <div class="action-item">🤗 Visitar con mis papás</div>
+                    <div class="action-item">🙏 Rezar por personas solas</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(6)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al acompañar?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(6, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(6, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(6, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(6, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card corporal" data-day="7">
+                <div class="day-header">
+                    <div class="day-number">7</div>
+                    <div class="day-title">Enterrar a los difuntos</div>
+                    <div class="emoji">🌹</div>
+                </div>
+                <div class="day-description">
+                    Voy a acompañar con respeto y cariño a familias que han perdido a alguien querido, o visitar el cementerio.
+                </div>
+                <div class="actions">
+                    <div class="action-item">🌸 Llevar flores al cementerio</div>
+                    <div class="action-item">🤗 Dar abrazos de consuelo</div>
+                    <div class="action-item">🙏 Rezar por los que partieron</div>
+                    <div class="action-item">💌 Escribir palabras de apoyo</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(7)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al acompañar en el dolor?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(7, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(7, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(7, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(7, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header espiritual">
+                <h2>✨ OBRAS DE MISERICORDIA ESPIRITUALES ✨</h2>
+                <p>Ayudando con el alma y las necesidades del corazón</p>
+            </div>
+
+            <div class="day-card espiritual" data-day="8">
+                <div class="day-header">
+                    <div class="day-number">8</div>
+                    <div class="day-title">Enseñar al que no sabe</div>
+                    <div class="emoji">📚</div>
+                </div>
+                <div class="day-description">
+                    Hoy voy a enseñar algo que yo sé bien a alguien que no lo sabe. Puede ser un juego, una canción, o ayudar con tareas.
+                </div>
+                <div class="actions">
+                    <div class="action-item">✏️ Ayudar con tareas</div>
+                    <div class="action-item">⚽ Enseñar un juego</div>
+                    <div class="action-item">🎵 Enseñar una canción</div>
+                    <div class="action-item">🏃 Enseñar un deporte</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(8)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al enseñar?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(8, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(8, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(8, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(8, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card espiritual" data-day="9">
+                <div class="day-header">
+                    <div class="day-number">9</div>
+                    <div class="day-title">Dar buen consejo</div>
+                    <div class="emoji">💡</div>
+                </div>
+                <div class="day-description">
+                    Voy a escuchar con cariño a alguien que tiene un problema y le voy a dar un consejo bueno y sabio.
+                </div>
+                <div class="actions">
+                    <div class="action-item">👂 Escuchar con atención</div>
+                    <div class="action-item">💭 Pensar bien antes de hablar</div>
+                    <div class="action-item">❤️ Hablar con amor</div>
+                    <div class="action-item">🤝 Ofrecer mi ayuda</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(9)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al aconsejar?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(9, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(9, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(9, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(9, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card espiritual" data-day="10">
+                <div class="day-header">
+                    <div class="day-number">10</div>
+                    <div class="day-title">Corregir al que se equivoca</div>
+                    <div class="emoji">🗣️</div>
+                </div>
+                <div class="day-description">
+                    Con mucho amor y respeto, voy a ayudar a alguien que está haciendo algo malo a que se dé cuenta y mejore.
+                </div>
+                <div class="actions">
+                    <div class="action-item">💝 Hablar con mucho amor</div>
+                    <div class="action-item">🤫 Decirlo en privado</div>
+                    <div class="action-item">😊 Sonreír mientras hablo</div>
+                    <div class="action-item">🤗 Ofrecer perdón después</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(10)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al corregir con amor?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(10, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(10, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(10, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(10, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card espiritual" data-day="11">
+                <div class="day-header">
+                    <div class="day-number">11</div>
+                    <div class="day-title">Perdonar las ofensas</div>
+                    <div class="emoji">💕</div>
+                </div>
+                <div class="day-description">
+                    Hoy voy a perdonar de todo corazón a alguien que me hizo algo malo y le voy a demostrar que ya no estoy enojado/a.
+                </div>
+                <div class="actions">
+                    <div class="action-item">🤝 Dar la mano en paz</div>
+                    <div class="action-item">😊 Sonreír con amor</div>
+                    <div class="action-item">🎁 Dar un regalo de reconciliación</div>
+                    <div class="action-item">⚽ Invitar a jugar juntos</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(11)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí después de perdonar?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(11, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(11, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(11, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(11, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card espiritual" data-day="12">
+                <div class="day-header">
+                    <div class="day-number">12</div>
+                    <div class="day-title">Consolar al triste</div>
+                    <div class="emoji">🤗</div>
+                </div>
+                <div class="day-description">
+                    Voy a buscar a alguien que esté triste y le voy a dar un abrazo, palabras bonitas o simplemente estar con esa persona.
+                </div>
+                <div class="actions">
+                    <div class="action-item">🫂 Dar un abrazo fuerte</div>
+                    <div class="action-item">💌 Escribir una nota bonita</div>
+                    <div class="action-item">🎵 Cantar una canción alegre</div>
+                    <div class="action-item">🎨 Hacer un dibujo especial</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(12)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí después de consolar?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(12, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(12, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(12, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(12, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card espiritual" data-day="13">
+                <div class="day-header">
+                    <div class="day-number">13</div>
+                    <div class="day-title">Sufrir con paciencia</div>
+                    <div class="emoji">😌</div>
+                </div>
+                <div class="day-description">
+                    Voy a ser muy paciente con los defectos de otros y no voy a enojarme cuando alguien me moleste.
+                </div>
+                <div class="actions">
+                    <div class="action-item">😮‍💨 Respirar profundo cuando me molesten</div>
+                    <div class="action-item">😊 Sonreír aunque sea difícil</div>
+                    <div class="action-item">💪 Ser fuerte y no pelear</div>
+                    <div class="action-item">❤️ Recordar que Jesús me ama</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(13)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al ser paciente?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(13, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(13, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(13, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(13, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card espiritual" data-day="14">
+                <div class="day-header">
+                    <div class="day-number">14</div>
+                    <div class="day-title">Rezar por vivos y difuntos</div>
+                    <div class="emoji">🙏</div>
+                </div>
+                <div class="day-description">
+                    Hoy voy a rezar especialmente por otras personas: por los que están tristes, enfermos, y por los que ya están en el cielo.
+                </div>
+                <div class="actions">
+                    <div class="action-item">🌅 Rezar en la mañana</div>
+                    <div class="action-item">🌟 Rezar antes de dormir</div>
+                    <div class="action-item">⛪ Rezar en la iglesia</div>
+                    <div class="action-item">👨‍👩‍👧‍👦 Rezar en familia</div>
+                </div>
+                <div class="check-section">
+                    <button class="check-button" onclick="markComplete(14)">¡Ya lo hice! 🎉</button>
+                </div>
+                <div class="feeling-section">
+                    <div class="feeling-question">¿Cómo me sentí al rezar por otros?</div>
+                    <div class="feeling-options">
+                        <span class="feeling-emoji" onclick="selectFeeling(14, 'happy')" data-feeling="happy">😊</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(14, 'proud')" data-feeling="proud">😌</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(14, 'excited')" data-feeling="excited">🤗</span>
+                        <span class="feeling-emoji" onclick="selectFeeling(14, 'peaceful')" data-feeling="peaceful">😇</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="celebration" id="celebration">
+            <h2>🎊 ¡FELICITACIONES! 🎊</h2>
+            <p>¡Completaste los 14 días de obras de misericordia!</p>
+            <p>💖 Corporales y Espirituales 💖</p>
+            <p>Eres un verdadero discípulo de Jesús ✨</p>
+            <div style="font-size: 3em; margin: 20px 0;">🏆✨🌟</div>
+            <div class="share-buttons" style="margin-top: 20px;">
+                <button onclick="shareProgress()" class="share-button">📱 Compartir mi progreso</button>
+                <button onclick="downloadCertificate()" class="share-button">🏆 Descargar certificado</button>
+            </div>
+        </div>
+
+        <div class="share-section" style="padding: 20px 30px; background: #f8f9fa; margin-top: 20px;">
+            <h3 style="color: #333; margin-bottom: 15px;">📤 Compartir con la Familia</h3>
+            <p style="margin-bottom: 15px; color: #666;">¡Comparte esta hermosa herramienta con otras familias!</p>
+            <div class="share-options" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="shareURL()" class="mini-share-btn">📋 Copiar enlace</button>
+                <button onclick="shareWhatsApp()" class="mini-share-btn">💬 WhatsApp</button>
+                <button onclick="shareEmail()" class="mini-share-btn">📧 Email</button>
+                <button onclick="generateQR()" class="mini-share-btn">📱 Código QR</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let completedDays = {};
+        let selectedFeelings = {};
+
+        function markComplete(day) {
+            completedDays[day] = true;
+            
+            const dayCard = document.querySelector(`[data-day="${day}"]`);
+            const button = dayCard.querySelector('.check-button');
+            
+            dayCard.classList.add('completed');
+            button.classList.add('completed');
+            button.textContent = '✅ ¡Completado!';
+            button.style.background = '#4CAF50';
+            
+            updateProgress();
+            updateStats();
+            
+            if (Object.keys(completedDays).length === 14) {
+                showCelebration();
+            }
+            
+            // Guardar en localStorage
+            localStorage.setItem('misericordia_completed', JSON.stringify(completedDays));
+        }
+
+        function selectFeeling(day, feeling) {
+            selectedFeelings[day] = feeling;
+            
+            const dayCard = document.querySelector(`[data-day="${day}"]`);
+            const feelingEmojis = dayCard.querySelectorAll('.feeling-emoji');
+            
+            feelingEmojis.forEach(emoji => {
+                emoji.classList.remove('selected');
+                if (emoji.dataset.feeling === feeling) {
+                    emoji.classList.add('selected');
+                }
+            });
+            
+            updateStats();
+            
+            // Guardar en localStorage
+            localStorage.setItem('misericordia_feelings', JSON.stringify(selectedFeelings));
+        }
+
+        function updateProgress() {
+            const completed = Object.keys(completedDays).length;
+            const percentage = (completed / 14) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+        }
+
+        function updateStats() {
+            const completed = Object.keys(completedDays).length;
+            const happyMoments = Object.values(selectedFeelings).filter(f => 
+                f === 'happy' || f === 'excited' || f === 'proud' || f === 'peaceful'
+            ).length;
+            
+            document.getElementById('completedDays').textContent = completed;
+            document.getElementById('happyMoments').textContent = happyMoments;
+        }
+
+        function showCelebration() {
+            document.getElementById('celebration').classList.add('show');
+            
+            // Scroll to celebration
+            document.getElementById('celebration').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+            
+            // Confetti effect (simple)
+            setTimeout(() => {
+                for (let i = 0; i < 50; i++) {
+                    createConfetti();
+                }
+            }, 500);
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.top = '-10px';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.fontSize = '20px';
+            confetti.style.zIndex = '9999';
+            confetti.style.pointerEvents = 'none';
+            confetti.textContent = ['🎉', '⭐', '💖', '🌟', '✨'][Math.floor(Math.random() * 5)];
+            
+            document.body.appendChild(confetti);
+            
+            let position = 0;
+            const animation = setInterval(() => {
+                position += 5;
+                confetti.style.top = position + 'px';
+                
+                if (position > window.innerHeight) {
+                    clearInterval(animation);
+                    confetti.remove();
+                }
+            }, 50);
+        }
+
+        // Cargar datos guardados al inicio
+        function loadSavedData() {
+            const savedCompleted = localStorage.getItem('misericordia_completed');
+            const savedFeelings = localStorage.getItem('misericordia_feelings');
+            
+            if (savedCompleted) {
+                completedDays = JSON.parse(savedCompleted);
+                Object.keys(completedDays).forEach(day => {
+                    const dayCard = document.querySelector(`[data-day="${day}"]`);
+                    const button = dayCard.querySelector('.check-button');
+                    
+                    dayCard.classList.add('completed');
+                    button.classList.add('completed');
+                    button.textContent = '✅ ¡Completado!';
+                    button.style.background = '#4CAF50';
+                });
+            }
+            
+            if (savedFeelings) {
+                selectedFeelings = JSON.parse(savedFeelings);
+                Object.entries(selectedFeelings).forEach(([day, feeling]) => {
+                    const dayCard = document.querySelector(`[data-day="${day}"]`);
+                    const feelingEmoji = dayCard.querySelector(`[data-feeling="${feeling}"]`);
+                    if (feelingEmoji) {
+                        feelingEmoji.classList.add('selected');
+                    }
+                });
+            }
+            
+            updateProgress();
+            updateStats();
+            
+            if (Object.keys(completedDays).length === 14) {
+                showCelebration();
+            }
+        }
+
+        // Cargar datos al iniciar
+        loadSavedData();
+
+        // Funciones para compartir
+        function shareProgress() {
+            const completed = Object.keys(completedDays).length;
+            const happyMoments = Object.values(selectedFeelings).filter(f => 
+                f === 'happy' || f === 'excited' || f === 'proud' || f === 'peaceful'
+            ).length;
+            
+            const message = `🌟 ¡Mi niño/a completó ${completed}/14 días del Desafío de Obras de Misericordia! 🌟\n\n💖 Obras Corporales y Espirituales\n✨ Momentos felices: ${happyMoments}\n💖 Aprendiendo a amar como Jesús\n\n#ObrasDeMisericordia #AmorCristiano`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Desafío de Obras de Misericordia',
+                    text: message,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(message + '\n\n' + window.location.href);
+                alert('📋 ¡Mensaje copiado! Pégalo donde quieras compartir.');
+            }
+        }
+
+        function downloadCertificate() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 600;
+            canvas.height = 400;
+            
+            // Fondo degradado
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Texto del certificado
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 36px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('🏆 CERTIFICADO 🏆', canvas.width/2, 80);
+            
+            ctx.font = '24px Arial';
+            ctx.fillText('Completé los 14 días de', canvas.width/2, 140);
+            ctx.fillText('Obras de Misericordia', canvas.width/2, 170);
+            ctx.fillText('(Corporales y Espirituales)', canvas.width/2, 200);
+            
+            ctx.font = '18px Arial';
+            const today = new Date().toLocaleDateString('es-CL');
+            ctx.fillText(`${today}`, canvas.width/2, 240);
+            
+            ctx.font = '16px Arial';
+            ctx.fillText('Como Jesús nos enseñó a amar 💖', canvas.width/2, 280);
+            
+            // Descargar
+            const link = document.createElement('a');
+            link.download = 'certificado-obras-misericordia.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function shareURL() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('📋 ¡Enlace copiado! Compártelo con otras familias.');
+            });
+        }
+
+        function shareWhatsApp() {
+            const message = '🌟 ¡Descubre esta hermosa herramienta para enseñar las 14 Obras de Misericordia a los niños! 💖 Corporales y Espirituales - 14 días de desafíos interactivos y didácticos. ✨';
+            const url = window.location.href;
+            const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message + ' ' + url)}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        function shareEmail() {
+            const subject = 'Desafío de 14 Obras de Misericordia para Niños';
+            const body = `¡Hola! 🌟
+
+Te comparto esta hermosa herramienta interactiva para enseñar las 14 Obras de Misericordia (Corporales y Espirituales) a los niños.
+
+Es un desafío completo de 14 días, muy didáctico y visual, perfecto para hacer en familia o en catequesis.
+
+🔴 7 Obras Corporales (necesidades del cuerpo)
+🔵 7 Obras Espirituales (necesidades del alma)
+
+Los niños pueden registrar su progreso sin necesidad de escribir, solo con clics y emojis.
+
+Accede aquí: ${window.location.href}
+
+¡Espero que les sea útil! 💖
+
+Bendiciones`;
+            
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        function generateQR() {
+            const qrContainer = document.createElement('div');
+            qrContainer.className = 'qr-container';
+            qrContainer.innerHTML = `
+                <h3>📱 Código QR para Compartir</h3>
+                <p>Escanea este código para acceder a la herramienta:</p>
+                <div style="margin: 20px 0;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}" alt="Código QR" style="border: 2px solid #ddd; border-radius: 10px;">
+                </div>
+                <p style="font-size: 0.9em; color: #666;">Comparte este código en folletos, carteles o redes sociales</p>
+                <button onclick="this.parentElement.style.display='none'" style="margin-top: 10px; padding: 8px 15px; background: #ff5722; color: white; border: none; border-radius: 5px; cursor: pointer;">Cerrar</button>
+            `;
+            
+            document.querySelector('.share-section').appendChild(qrContainer);
+            qrContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
