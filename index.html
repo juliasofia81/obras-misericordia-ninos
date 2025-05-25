@@ -861,6 +861,25 @@
                 <button onclick="shareEmail()" class="mini-share-btn">📧 Email</button>
                 <button onclick="generateQR()" class="mini-share-btn">📱 Código QR</button>
             </div>
+            
+            <!-- Reseteo discreto para adultos -->
+            <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+                <p style="margin: 0; color: #856404; font-size: 0.85em; line-height: 1.4;">
+                    <strong>👨‍🏫 Para educadores/padres:</strong> ¿Un nuevo niño va a usar esta herramienta? 
+                    <span onclick="showResetOptions()" style="color: #007bff; cursor: pointer; text-decoration: underline;">Haz clic aquí</span> 
+                    para preparar la herramienta.
+                </p>
+            </div>
+        </div>
+
+        <!-- Panel de reseteo oculto -->
+        <div id="resetPanel" style="display: none; margin: 20px 30px; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <h4 style="color: #333; margin-bottom: 15px;">🔄 Preparar para Nuevo Niño</h4>
+            <p style="color: #666; margin-bottom: 15px;">Esto permitirá que el próximo niño tenga su propia experiencia completa, incluyendo la sorpresa del diploma y celebración.</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="resetProgress()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold;">✅ Sí, preparar para nuevo niño</button>
+                <button onclick="hideResetOptions()" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">❌ Cancelar</button>
+            </div>
         </div>
     </div>
 
@@ -1115,6 +1134,56 @@ Bendiciones`;
             
             document.querySelector('.share-section').appendChild(qrContainer);
             qrContainer.style.display = 'block';
+        }
+
+        function resetProgress() {
+            // Limpiar datos guardados
+            localStorage.removeItem('misericordia_completed');
+            localStorage.removeItem('misericordia_feelings');
+            
+            // Resetear variables
+            completedDays = {};
+            selectedFeelings = {};
+            
+            // Resetear interfaz
+            const dayCards = document.querySelectorAll('.day-card');
+            dayCards.forEach(card => {
+                card.classList.remove('completed');
+                const button = card.querySelector('.check-button');
+                button.classList.remove('completed');
+                button.textContent = '¡Ya lo hice! 🎉';
+                button.style.background = '#ff9800';
+                
+                // Limpiar emojis seleccionados
+                const feelingEmojis = card.querySelectorAll('.feeling-emoji');
+                feelingEmojis.forEach(emoji => {
+                    emoji.classList.remove('selected');
+                });
+            });
+            
+            // Resetear progreso
+            updateProgress();
+            updateStats();
+            
+            // Ocultar celebración
+            document.getElementById('celebration').classList.remove('show');
+            
+            // Ocultar panel de reseteo
+            hideResetOptions();
+            
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            alert('✨ ¡Listo! La herramienta está preparada para que un nuevo niño descubra su sorpresa 🎁');
+        }
+
+        function showResetOptions() {
+            document.getElementById('resetPanel').style.display = 'block';
+            document.getElementById('resetPanel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideResetOptions() {
+            document.getElementById('resetPanel').style.display = 'none';
         }
     </script>
 </body>
