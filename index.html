@@ -1041,7 +1041,15 @@
         </div>
 
         <div class="share-section" style="padding: 20px 30px; background: #f8f9fa; margin-top: 20px;">
-            <h3 style="color: #333; margin-bottom: 15px;">📤 Compartir con la Familia</h3>
+            <h3 style="color: #333; margin-bottom: 15px;">📖 Consejos para usar la herramienta</h3>
+            <div style="background: #e8f5e8; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                <strong>💡 Consejo:</strong> Pide ayuda a tus papás, abuelos, profesores o adultos de confianza para encontrar formas de ayudar. ¡Lo importante es hacerlo con amor y siempre con la guía de un adulto!
+            </div>
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                <strong>👨‍👩‍👧‍👦 Para padres:</strong> Acompañen a sus hijos en estas actividades. Algunas obras requieren supervisión adulta para garantizar el desarrollo apropiado del niño.
+            </div>
+            
+            <h3 style="color: #333; margin: 30px 0 15px;">📤 Compartir con la Familia</h3>
             <p style="margin-bottom: 15px; color: #666;">¡Comparte esta hermosa herramienta con otras familias!</p>
             <div class="share-options" style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <button onclick="shareURL()" class="mini-share-btn">📋 Copiar enlace</button>
@@ -1200,7 +1208,7 @@
                 f === 'happy' || f === 'excited' || f === 'proud' || f === 'peaceful'
             ).length;
             
-            const message = `🌟 ¡Mi niño/a completó ${completed}/14 días del Desafío de Obras de Misericordia! 🌟\n\n💖 Obras Corporales y Espirituales\n✨ Momentos felices: ${happyMoments}\n💖 Aprendiendo a amar como Jesús\n\n#ObrasDeMisericordia #AmorCristiano`;
+            const message = `🌟 ¡Mi niño/a completó ${completed}/14 obras del Desafío de Obras de Misericordia! 🌟\n\n💖 Corporales y Espirituales\n✨ Momentos felices: ${happyMoments}\n👨‍👩‍👧‍👦 Con supervisión y amor familiar\n💫 Aprendiendo a amar como Jesús\n\n#ObrasDeMisericordia #AmorCristiano`;
             
             if (navigator.share) {
                 navigator.share({
@@ -1260,7 +1268,7 @@
         }
 
         function shareWhatsApp() {
-            const message = '🌟 ¡Descubre esta hermosa herramienta para enseñar las 14 Obras de Misericordia a los niños! 💖 Corporales y Espirituales - 14 días de desafíos interactivos y didácticos. ✨';
+            const message = '🌟 ¡Descubre esta hermosa herramienta para enseñar las 14 Obras de Misericordia a los niños! 💖 Corporales y Espirituales - Herramienta interactiva y didáctica con supervisión adulta apropiada. ✨';
             const url = window.location.href;
             const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message + ' ' + url)}`;
             window.open(whatsappURL, '_blank');
@@ -1272,12 +1280,14 @@
 
 Te comparto esta hermosa herramienta interactiva para enseñar las 14 Obras de Misericordia (Corporales y Espirituales) a los niños.
 
-Es un desafío completo de 14 días, muy didáctico y visual, perfecto para hacer en familia o en catequesis.
+Es un desafío completo de 14 obras, muy didáctico y visual, perfecto para hacer en familia o en catequesis.
 
 🔴 7 Obras Corporales (necesidades del cuerpo)
 🔵 7 Obras Espirituales (necesidades del alma)
 
 Los niños pueden registrar su progreso sin necesidad de escribir, solo con clics y emojis.
+
+Incluye consejos psicológicos apropiados y supervisión adulta recomendada.
 
 Accede aquí: ${window.location.href}
 
@@ -1343,7 +1353,7 @@ Bendiciones`;
             // Scroll al inicio
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            alert('✨ ¡Listo! La herramienta está preparada para que un nuevo niño descubra su sorpresa 🎁');
+            alert('✨ ¡Listo! La herramienta está preparada para que un nuevo niño descubra las obras de misericordia con supervisión apropiada 🎁');
         }
 
         function showResetOptions() {
